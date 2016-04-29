@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="interface.css" />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+
+  <title>Unite</title>
+
+</head>
+
+
+<body style="background-color: #2a363b" onLoad="updateDistribution()">
+
+<div id="openingScreen" style="position: fixed">
+  <div id="openingText">There are five people.</div>
+  <div class="button" id="uniteButton" onClick="openMainScreen()">UNITE</div>
+</div>
+
+<div id="mainScreen" style="display: none">
+  <!-- citizen distribution bar-->
+  <div id="citizenDistributionContainer">
+    <div id="citizenDistributionProgress">
+      <div id="distributionHunters" class="distributionSection">
+        Hunters
+      </div>
+      <div id="distributionGatherers" class="distributionSection">
+        Gatherers
+      </div>
+      <div id="distributionFarmers" class="distributionSection">
+        Farmers
+      </div>
+      <div id="distributionFree" class="distributionSection">
+        Unemployed
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- adding citizen jobs -->
+  <div class="button" id="addHunterButton" onClick="addHunter(), updateDistribution()">hunter</div>
+  <div class="button" id="addGathererButton" onClick="addGatherer(), updateDistribution()">gatherer</div>
+  <div class="button" id="addFarmerButton" onClick="addFarmer(), updateDistribution()">farmer</div>
+</div>
+
+</body>
+
+
+</html>
