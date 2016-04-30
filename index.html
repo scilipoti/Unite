@@ -21,7 +21,7 @@
 <body style="background-color: #2a363b" onLoad="updateDistribution()">
 
 <div id="openingScreen" style="position: fixed">
-  <div id="openingText">There are five people.</div>
+  <div id="openingText">You and your band of five approach a broad river.<br>You call them to a halt and strike the first tent.<br>Here you will make your home.<br><div id="houseName"></div></div>
   <div class="button" id="uniteButton" onClick="openMainScreen()">UNITE</div>
 </div>
 
@@ -30,26 +30,31 @@
   <div id="citizenDistributionContainer">
     <div id="citizenDistributionProgress">
       <div id="distributionHunters" class="distributionSection">
-        Hunters
       </div>
       <div id="distributionGatherers" class="distributionSection">
-        Gatherers
       </div>
       <div id="distributionFarmers" class="distributionSection">
-        Farmers
       </div>
       <div id="distributionFree" class="distributionSection">
-        Unemployed
       </div>
     </div>
   </div>
 
-
-
   <!-- adding citizen jobs -->
-  <div class="button" id="addHunterButton" onClick="addHunter(), updateDistribution()">hunter</div>
-  <div class="button" id="addGathererButton" onClick="addGatherer(), updateDistribution()">gatherer</div>
-  <div class="button" id="addFarmerButton" onClick="addFarmer(), updateDistribution()">farmer</div>
+  <div id="jobButtons" class="sectionText" style="margin-left: 5%; width: 20%;">
+    <p style="margin-left: 7px">Train:</p>
+    <div class="button" id="addHunterButton" onClick="addHunter(), updateDistribution()">hunter</div>
+    <div class="button" id="addGathererButton" onClick="addGatherer(), updateDistribution()">gatherer</div>
+    <div class="button" id="addFarmerButton" onClick="addFarmer(), updateDistribution()">farmer</div>
+  </div>
+
+  <div id="resources" class="sectionText" style="margin-left: 25%">
+    <p>Resources:</p>
+    <div class="displayText" id="totalFood">food</div><br>
+    <div class="displayText" id="totalWood">wood</div><br>
+    <div class="displayText" id="totalFurs">furs</div>
+  </div>
+
 </div>
 
 </body>

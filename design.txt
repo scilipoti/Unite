@@ -1,0 +1,26 @@
+Design
+
+Hunter gives 1 food/sec
+Gatherer gives 0 food/sec and random wood, fur, and metal
+Farmer gives 2 food/sec in summer, 0 food/sec in winter
+
+Need enough food to support population or they die
+
+Make food number red when going down
+give ten second warning before workers start to die of starvation
+
+fade in buildings and buttons only just before they can be built. very simplistic at first.
+never fade in more than 2 or 3 at a time. but have a button to show all
+
+have a notification section like EU4 for worker starvation, choices, etc
+
+a sense of scale. how big is the village really?
+
+resource requirements on hover
+show which resources you have enough of in green, not enough in red
+
+no upgrades, upgrades are stupid and annoying.
+
+show composition of resource rates on hover
+
+order distribution bar by size
