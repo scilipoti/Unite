@@ -1,0 +1,3 @@
+Bugs
+
+all text slightly bold without css class {position: fixed;}

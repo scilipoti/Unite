@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- version 0.4 -->
 
 <head>
 
@@ -51,7 +52,7 @@
     <!-- most of the screen is divided into columns. this is the leftmost -->
     <div id="leftColumn">
       <!-- adding citizen jobs -->
-      <div id="jobButtons" class="section" style="margin-left: 5%">
+      <div id="jobButtons" class="section">
         <p style="margin-left: 7px">Train:</p>
         <div class="button" id="addHunterButton" onClick="addHunter(), updateDistribution()">hunter</div>
         <div class="button" id="addGathererButton" onClick="addGatherer(), updateDistribution()">gatherer</div>
@@ -59,13 +60,12 @@
       </div>
 
       <!-- adding buildings -->
-      <div id="buildButtons" class="section" style="margin-top: 15%;margin-left: 5%">
+      <div id="buildButtons" class="section">
         <p style="margin-left: 7px">Build:</p>
         <div class="button" id="addHutButton" onClick="addHut()">hut</div>
       </div>
     </div>
 
-    <!-- not actually in the middle. left edge is 25% margin-->
     <div id="middleColumn">
       <!-- resources table -->
       <div id="resources" class="section">
@@ -74,6 +74,9 @@
         <div id="totalWood">wood</div>
         <div id="totalFurs">furs</div>
       </div>
+    </div>
+
+    <div id="rightColumn" class="section">Notifications:
     </div>
 
   </div>

@@ -24,3 +24,5 @@ no upgrades, upgrades are stupid and annoying.
 show composition of resource rates on hover
 
 order distribution bar by size
+
+add a notification when a new citizen arrives

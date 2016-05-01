@@ -10,14 +10,20 @@
 }
 
 #leftColumn {
-  position: fixed;
+  float: left;
+  width: 20%;
   margin-left: 5%;
   margin-top: 2%
 }
 
 #middleColumn {
-  position: fixed;
-  margin-left: 25%;
+  float: left;
+  width: 20%;
+  margin-top: 2%;
+}
+
+#rightColumn {
+  float: left;
   margin-top: 2%;
 }
 
@@ -26,6 +32,7 @@
   font-size: 14px;
   color: white;
   font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-weight: normal;
 }
 
 #openingText {
@@ -57,6 +64,7 @@
 }
 */
 
+/*universal button plus hover and click and disable*/
 .button {
   background-color: #2a363b;
   border: 1px solid white;
@@ -79,6 +87,14 @@
   background-color: white;
   color: black;
   font-weight: bold;
+}
+
+.button:active {
+  background-color: grey;
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 #uniteButton {

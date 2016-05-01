@@ -1,0 +1,12 @@
+Changelog:
+
+v0.4
+Made buttons darker on click
+Disabled UNITE button once clicked
+Re-organized columns to float instead of fixed
+Added notifications column
+Added bugs.txt
+Added changelog.txt
+Consolidated some code
+Set minimum on food resource
+Added citizen death when you run out of food

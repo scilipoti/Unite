@@ -5,6 +5,7 @@ var intUsedCitizens = 4;
 var intHunters = 1;
 var intGatherers = 1;
 var intFarmers = 2;
+var intFree = 1;
 
 //total resources
 var totalFood = 10;
@@ -23,8 +24,12 @@ var foodRate = 3.5;
 var woodRate = 0;
 var fursRate = 0;
 
-//make main screen visible and opening invisible
+//limit so only one citizen will be killed at a time
+var killingCitizen = false;
+
+//make main screen visible and opening invisible and disable UNITE button
 function openMainScreen() {
+    $("#uniteButton").addClass("disabled");
     $("#openingScreen").fadeOut(3000);
     $("#mainScreen").fadeIn(3000);
 }
@@ -42,7 +47,7 @@ window.setInterval(function() {
     if (intMaxPop > intTotalCitizens) {
       intTotalCitizens++;
       updateDistribution();
-    } else {}
+    }
 //once per minute
 }, 60000);
 
@@ -53,8 +58,9 @@ function addHunterCooldown() {
 }
 */
 
-//updating resource count and rate
+//updating and write resource count and rate
 window.setInterval(function() {
+
     //adds together food production and subtracts citizen consumption for net rate
     foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens;
     //adds foodRate to total
@@ -63,11 +69,12 @@ window.setInterval(function() {
     totalWood = totalWood + woodRate;
     fursRate = (gathererFursRate * intGatherers);
     totalFurs = totalFurs + fursRate;
-//once per second
-}, 1000);
 
-//writing resource count
-window.setInterval(function() {
+    //start killing the worker if food runs out
+    if (totalFood <= 0 && foodRate < 0) {
+      totalFood = 0;
+      killCitizenCountdown();
+    }
 
     //update the numbers
     document.getElementById('totalFood').innerHTML = totalFood + " food " + foodRate + " food/sec";
@@ -80,6 +87,7 @@ window.setInterval(function() {
     } else {
       document.getElementById('totalFood').style.color = "white";
     }
+//once per second
 }, 1000);
 
 //updating distribution bar
@@ -107,7 +115,7 @@ function updateDistribution() {
     document.getElementById('distributionHunters').innerHTML = intHunters + " Hunters";
     document.getElementById('distributionGatherers').innerHTML = intGatherers + " Gatherers";
     document.getElementById('distributionFarmers').innerHTML = intFarmers + " Farmers";
-    document.getElementById('distributionFree').innerHTML = intFree + " Free";
+    document.getElementById('distributionFree').innerHTML = intFree + " Unemployed";
     document.getElementById('distributionMaxPop').innerHTML = (intMaxPop - intTotalCitizens) + " Empty Beds";
 
 }
@@ -137,8 +145,37 @@ function addFarmer() {
 
 //adding buildings
 function addHut() {
-    intMaxPop = intMaxPop + 2;
+    if (totalWood - 10 >= 0) {
+        totalWood = totalWood - 10;
+        intMaxPop = intMaxPop + 2;
+        updateDistribution();
+    } else {alert("not enough wood")}
+}
+
+function killCitizenCountdown() {
+    //so only one citizen will be killed at a time
+    if (killingCitizen == true) {
+    } else if (killingCitizen == false){
+        setTimeout(killCitizen, 15000);
+        killingCitizen = true;
+    } else {alert("var killingCitizen is neither true nor false. this is a bug, please report it")}
+}
+
+//kill a citizen after 10 seconds
+function killCitizen() {
+    //kills one from total
+    intTotalCitizens--;
+    if (intFree > 0) {
+        intFree--;
+    } else if (intGatherers > 0) {
+        intGatherers--;
+    } else if (intHunters > 0) {
+        intHunters--;
+    } else if (intFarmers > 0) {
+        intFarmers--;
+    } else {alert("You don't have any more citizens")}
     updateDistribution();
+    killingCitizen = false;
 }
 
 /*
