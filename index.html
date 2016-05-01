@@ -7,8 +7,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- loading local stylesheet and bootstrap -->
   <link rel="stylesheet" type="text/css" href="interface.css" />
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- loading jquery, bootstrap, and local javascript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
@@ -17,45 +20,63 @@
 
 </head>
 
+<!-- distribution is the top bar displaying citizens' jobs. This function updates it -->
+<body id="body" onLoad="updateDistribution()">
 
-<body style="background-color: #2a363b" onLoad="updateDistribution()">
+  <!-- the opening screen fades when the UNITE button is clicked. This is controlled by openMainScreen() -->
+  <div id="openingScreen" style="position: fixed">
+    <div id="openingText">You and your band of five approach a broad river.<br>You call them to a halt and strike the first tent.<br>Here you will make your home.<br><div id="houseName"></div></div>
+    <div class="button" id="uniteButton" onClick="openMainScreen()">UNITE</div>
+  </div>
 
-<div id="openingScreen" style="position: fixed">
-  <div id="openingText">You and your band of five approach a broad river.<br>You call them to a halt and strike the first tent.<br>Here you will make your home.<br><div id="houseName"></div></div>
-  <div class="button" id="uniteButton" onClick="openMainScreen()">UNITE</div>
-</div>
+  <!-- the main screen is loaded by openMainScreen() as the opening disappears -->
+  <div id="mainScreen" style="display: none">
 
-<div id="mainScreen" style="display: none">
-  <!-- citizen distribution bar-->
-  <div id="citizenDistributionContainer">
-    <div id="citizenDistributionProgress">
-      <div id="distributionHunters" class="distributionSection">
-      </div>
-      <div id="distributionGatherers" class="distributionSection">
-      </div>
-      <div id="distributionFarmers" class="distributionSection">
-      </div>
-      <div id="distributionFree" class="distributionSection">
+    <!-- citizen distribution bar-->
+    <div id="citizenDistributionContainer">
+      <div id="citizenDistributionProgress">
+        <div id="distributionHunters" class="distributionSection">
+        </div>
+        <div id="distributionGatherers" class="distributionSection">
+        </div>
+        <div id="distributionFarmers" class="distributionSection">
+        </div>
+        <div id="distributionFree" class="distributionSection">
+        </div>
+        <div id="distributionMaxPop" class="distributionSection">
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- adding citizen jobs -->
-  <div id="jobButtons" class="sectionText" style="margin-left: 5%; width: 20%;">
-    <p style="margin-left: 7px">Train:</p>
-    <div class="button" id="addHunterButton" onClick="addHunter(), updateDistribution()">hunter</div>
-    <div class="button" id="addGathererButton" onClick="addGatherer(), updateDistribution()">gatherer</div>
-    <div class="button" id="addFarmerButton" onClick="addFarmer(), updateDistribution()">farmer</div>
-  </div>
+    <!-- most of the screen is divided into columns. this is the leftmost -->
+    <div id="leftColumn">
+      <!-- adding citizen jobs -->
+      <div id="jobButtons" class="section" style="margin-left: 5%">
+        <p style="margin-left: 7px">Train:</p>
+        <div class="button" id="addHunterButton" onClick="addHunter(), updateDistribution()">hunter</div>
+        <div class="button" id="addGathererButton" onClick="addGatherer(), updateDistribution()">gatherer</div>
+        <div class="button" id="addFarmerButton" onClick="addFarmer(), updateDistribution()">farmer</div>
+      </div>
 
-  <div id="resources" class="sectionText" style="margin-left: 25%">
-    <p>Resources:</p>
-    <div class="displayText" id="totalFood">food</div><br>
-    <div class="displayText" id="totalWood">wood</div><br>
-    <div class="displayText" id="totalFurs">furs</div>
-  </div>
+      <!-- adding buildings -->
+      <div id="buildButtons" class="section" style="margin-top: 15%;margin-left: 5%">
+        <p style="margin-left: 7px">Build:</p>
+        <div class="button" id="addHutButton" onClick="addHut()">hut</div>
+      </div>
+    </div>
 
-</div>
+    <!-- not actually in the middle. left edge is 25% margin-->
+    <div id="middleColumn">
+      <!-- resources table -->
+      <div id="resources" class="section">
+        <p>Resources:</p>
+        <div id="totalFood">food</div>
+        <div id="totalWood">wood</div>
+        <div id="totalFurs">furs</div>
+      </div>
+    </div>
+
+  </div>
 
 </body>
 
