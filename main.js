@@ -27,6 +27,7 @@ var fursRate = 0;
 //limit so only one citizen will be killed at a time
 var killingCitizen = false;
 
+
 //make main screen visible and opening invisible and disable UNITE button
 function openMainScreen() {
     $("#uniteButton").addClass("disabled");
@@ -34,17 +35,20 @@ function openMainScreen() {
     $("#mainScreen").fadeIn(3000);
 }
 
-//initialize tooltips
+//on document ready
 $(document).ready(function() {
+
+    //initialize tooltips
     $('#addHunterButton').tooltip({title: "+" + hunterFoodRate + " food/sec", delay: {show: 1000, hide: 0}, placement: "right"});
     $('#addGathererButton').tooltip({title: "+" + gathererWoodRate + " wood/sec and " + "+" + gathererFursRate + " furs/sec", delay: {show: 1000, hide: 0}, placement: "right"});
     $('#addFarmerButton').tooltip({title: "+" + farmerFoodRate + " food/sec", delay: {show: 1000, hide: 0}, placement: "right"});
     $('#addHutButton').tooltip({title: "+2 beds", delay: {show: 1000, hide: 0}, placement: "right"});
+
 });
 
-//add citizens  when there is free population
+//add citizens when there is free population and food
 window.setInterval(function() {
-    if (intMaxPop > intTotalCitizens) {
+    if (intMaxPop > intTotalCitizens && foodRate > 0) {
       intTotalCitizens++;
       updateDistribution();
     }
@@ -127,6 +131,7 @@ function addHunter() {
     } else {
         alert("addHunter went to else statement. No more free citizens, can't add more jobs")
     }
+    updateDistribution();
 }
 
 function addGatherer() {
@@ -134,6 +139,7 @@ function addGatherer() {
     if (intUsedCitizens < intTotalCitizens) {
         intGatherers++;
     } else {alert("addGatherer went to else statement. No more free citizens, can't add more jobs")}
+    updateDistribution();
 }
 
 function addFarmer() {
@@ -141,6 +147,7 @@ function addFarmer() {
     if (intUsedCitizens < intTotalCitizens) {
         intFarmers++;
     } else {alert("addFarmer went to else statement. No more free citizens, can't add more jobs")}
+    updateDistribution();
 }
 
 //adding buildings
@@ -152,16 +159,18 @@ function addHut() {
     } else {alert("not enough wood")}
 }
 
+//start counting down to kill citizen
 function killCitizenCountdown() {
     //so only one citizen will be killed at a time
     if (killingCitizen == true) {
     } else if (killingCitizen == false){
+        //fifteen seconds
         setTimeout(killCitizen, 15000);
         killingCitizen = true;
     } else {alert("var killingCitizen is neither true nor false. this is a bug, please report it")}
 }
 
-//kill a citizen after 10 seconds
+//kill a citizen after 15 seconds
 function killCitizen() {
     //kills one from total
     intTotalCitizens--;

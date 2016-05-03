@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- version 0.4 -->
+<!-- version 0.5 -->
 
 <head>
 
@@ -11,6 +11,7 @@
   <!-- loading local stylesheet and bootstrap -->
   <link rel="stylesheet" type="text/css" href="interface.css" />
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic' type='text/css'>
 
   <!-- loading jquery, bootstrap, and local javascript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -33,7 +34,54 @@
   <!-- the main screen is loaded by openMainScreen() as the opening disappears -->
   <div id="mainScreen" style="display: none">
 
-    <!-- citizen distribution bar-->
+    <div id="workspace">
+
+      <div id="title">
+        <span id="villageName">VILLAGE NAME</span>
+        <span id="leaderName">LEADER NAME</span>
+      </div>
+
+      <div id="leftContainer">
+
+        <div id="resourcesContainer">
+
+          <p>Resources:</p>
+          <div id="resources">
+            <div id="totalFood">food</div>
+            <div id="totalWood">wood</div>
+            <div id="totalFurs">furs</div>
+          </div>
+
+        </div>
+
+        <div id="buttonsContainer">
+
+          <div id="jobButtonsContainer">
+            <p style="margin-left: 6px">Train:</p>
+            <div class="button" id="addHunterButton" onClick="addHunter()">hunter</div>
+            <div class="button" id="addGathererButton" onClick="addGatherer()">gatherer</div>
+            <div class="button" id="addFarmerButton" onClick="addFarmer()">farmer</div>
+          </div>
+
+          <div id="buildButtonsContainer">
+            <p style="margin-left: 6px; margin-bottom: 3px;">Build:</p>
+            <div class="button buildButton disabled" id="addHutButton" onClick="addHut()">hut</div>
+              <div class="buildButtonText" id="addHutButtonText"><span>10 wood</span></div>
+            <div class="button buildButton disabled" id="addHouseButton" onClick="addHut()">hut</div>
+              <div class="buildButtonText" id="addHouseText"><span>20 wood</span><br><span>10 stone</span></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="notificationContainer">
+        Notifications go here. <br>
+        Long notifications can even appear on multiple lines.
+      </div>
+
+    </div>
+
     <div id="citizenDistributionContainer">
       <div id="citizenDistributionProgress">
         <div id="distributionHunters" class="distributionSection">
@@ -47,36 +95,6 @@
         <div id="distributionMaxPop" class="distributionSection">
         </div>
       </div>
-    </div>
-
-    <!-- most of the screen is divided into columns. this is the leftmost -->
-    <div id="leftColumn">
-      <!-- adding citizen jobs -->
-      <div id="jobButtons" class="section">
-        <p style="margin-left: 7px">Train:</p>
-        <div class="button" id="addHunterButton" onClick="addHunter(), updateDistribution()">hunter</div>
-        <div class="button" id="addGathererButton" onClick="addGatherer(), updateDistribution()">gatherer</div>
-        <div class="button" id="addFarmerButton" onClick="addFarmer(), updateDistribution()">farmer</div>
-      </div>
-
-      <!-- adding buildings -->
-      <div id="buildButtons" class="section">
-        <p style="margin-left: 7px">Build:</p>
-        <div class="button" id="addHutButton" onClick="addHut()">hut</div>
-      </div>
-    </div>
-
-    <div id="middleColumn">
-      <!-- resources table -->
-      <div id="resources" class="section">
-        <p>Resources:</p>
-        <div id="totalFood">food</div>
-        <div id="totalWood">wood</div>
-        <div id="totalFurs">furs</div>
-      </div>
-    </div>
-
-    <div id="rightColumn" class="section">Notifications:
     </div>
 
   </div>

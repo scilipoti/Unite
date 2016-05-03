@@ -1,5 +1,16 @@
 Changelog:
 
+v0.5
+Changed font to Lora
+Rehauled the UI
+Organized CSS to be more readable
+Added village name and leader name placeholders
+Fixed bold font tendency in Safari
+Citizens won't arrive if there isn't enough food for them
+Greyed out disabled buttons
+Buildings display resource requirements (though not in color yet)
+Building resource requirements can go onto 2 lines
+
 v0.4
 Made buttons darker on click
 Disabled UNITE button once clicked
