@@ -44,6 +44,10 @@ $(document).ready(function() {
     $('#addFarmerButton').tooltip({title: "+" + farmerFoodRate + " food/sec", delay: {show: 1000, hide: 0}, placement: "right"});
     $('#addHutButton').tooltip({title: "+2 beds", delay: {show: 1000, hide: 0}, placement: "right"});
 
+    updateDistribution();
+
+    updateBuildingEnabler();
+
 });
 
 //add citizens when there is free population and food
@@ -62,7 +66,19 @@ function addHunterCooldown() {
 }
 */
 
-//updating and write resource count and rate
+function updateBuildingEnabler() {
+
+    //enable/disable building hut
+    if (totalWood - 10 >= 0 && $('#addHutButton').hasClass("disabled")) {
+        $('#addHutButton').removeClass("disabled");
+    } else if ((totalWood - 10 <= 0) && !$('#addHutButton').hasClass("disabled")) {
+        $('#addHutButton').addClass("disabled");
+    }
+
+}
+
+
+//once per second: updating and write resource count and rate, enabling/disabling building buttons
 window.setInterval(function() {
 
     //adds together food production and subtracts citizen consumption for net rate
@@ -80,7 +96,7 @@ window.setInterval(function() {
       killCitizenCountdown();
     }
 
-    //update the numbers
+    //update the total and rate
     document.getElementById('totalFood').innerHTML = totalFood + " food " + foodRate + " food/sec";
     document.getElementById('totalWood').innerHTML = totalWood + " wood " + woodRate + " wood/sec";
     document.getElementById('totalFurs').innerHTML = totalFurs + " furs " + fursRate + " furs/sec";
@@ -91,6 +107,9 @@ window.setInterval(function() {
     } else {
       document.getElementById('totalFood').style.color = "white";
     }
+
+    updateBuildingEnabler();
+
 //once per second
 }, 1000);
 
@@ -122,10 +141,23 @@ function updateDistribution() {
     document.getElementById('distributionFree').innerHTML = intFree + " Unemployed";
     document.getElementById('distributionMaxPop').innerHTML = (intMaxPop - intTotalCitizens) + " Empty Beds";
 
+    //disable training citizens if there are not more free citizens
+    if (intFree <= 0) {
+      $('#addHunterButton').addClass("disabled");
+      $('#addGathererButton').addClass("disabled");
+      $('#addFarmerButton').addClass("disabled");
+    //if they are disabled and there are free citizens, enable them
+    } else if (intFree > 0 && $('#addHunterButton').hasClass("disabled")) {
+      $('#addHunterButton').removeClass("disabled");
+      $('#addGathererButton').removeClass("disabled");
+      $('#addFarmerButton').removeClass("disabled");
+    }
+
 }
 
 //setting citizens to jobs
 function addHunter() {
+    intUsedCitizens = intHunters + intGatherers + intFarmers
     if (intUsedCitizens < intTotalCitizens) {
         intHunters++;
     } else {
@@ -157,6 +189,7 @@ function addHut() {
         intMaxPop = intMaxPop + 2;
         updateDistribution();
     } else {alert("not enough wood")}
+    updateBuildingEnabler();
 }
 
 //start counting down to kill citizen

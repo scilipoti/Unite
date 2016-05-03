@@ -12,9 +12,10 @@ notifications:
   when you're losing resources
   when your village changes size
   when a citizen arrives
+  when a citizen dies
 
 fade in buildings and buttons only just before they can be built. very simplistic at first.
-never fade in more than 2 or 3 at a time. but have a button to show all
+never fade in more than 2 or 3 at a time
 
 have a notification section like EU4 for worker starvation, choices, etc
 
@@ -29,3 +30,7 @@ disable buttons when you don't have enough resources
 settings and options:
   tooltip delay
   day/night colors
+  expert mode to show all possible buildings, buttons
+  custom village and leader names
+
+random events

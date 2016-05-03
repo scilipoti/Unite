@@ -191,8 +191,12 @@
   box-shadow: 0px 0px 5px  rgba(0, 0, 0, .2);
 }
 .button + .tooltip.right > .tooltip-arrow {
-     border-right: 5px solid #35929e;
+   border-right: 5px solid #35929e;
  }
+
+.tooltip {
+  opacity: 1 !important;
+}
 
 /* increase tooltip size just for this button */
 #addGathererButton + .tooltip > .tooltip-inner {
