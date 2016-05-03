@@ -27,6 +27,72 @@ var fursRate = 0;
 //limit so only one citizen will be killed at a time
 var killingCitizen = false;
 
+//village and leader names
+var villageName = "LANNISPORT";
+var leaderName = "TYWIN LANNISTER";
+
+//custom tooltip delay, initially 1 second
+var tooltipDelay = 1000;
+
+//opens settings window
+function openSettings() {
+  $("#settingsContainer").toggle(true); //sets display true
+  $("#settingsLink").addClass("disabledLink");
+  $("#saveLink").addClass("disabledLink"); //need to disable save so it doesn't open multiple windows
+
+}
+
+//close settings window
+function closeSettings() {
+  $("#settingsContainer").toggle(false); //sets display false
+  $("#settingsLink").removeClass("disabledLink");
+  $("#saveLink").removeClass("disabledLink"); //need to disable save so it doesn't open multiple windows
+}
+
+//opens save window
+function openSave() {
+  alert("save is not supported in this version");
+}
+
+//updates village and leader ranks
+function updateVillageRank() {
+
+  //check to see how many citizens there are and set villageRank accordingly
+  if (intTotalCitizens >= 0 && intTotalCitizens < 10) {
+    villageRank = 0;
+  } else if (intTotalCitizens >= 10 && intTotalCitizens < 50) {
+    villageRank = 1;
+  } else if (intTotalCitizens >= 50 && intTotalCitizens < 200) {
+    villageRank = 2;
+  } else if (intTotalCitizens >= 200 && intTotalCitizens < 1000) {
+    villageRank = 3;
+  } else if (intTotalCitizens >= 1000) {
+    villageRank = 4;
+  }
+
+  //check which rank village is and write
+  if (villageRank == 0) {
+    document.getElementById("villageRank").innerHTML = "HAMLET";
+    document.getElementById("leaderRank").innerHTML = "CHIEF";
+  } else if (villageRank == 1) {
+    document.getElementById("villageRank").innerHTML = "VILLAGE";
+    document.getElementById("leaderRank").innerHTML = "CHIEF";
+  } else if (villageRank == 2) {
+    document.getElementById("villageRank").innerHTML = "TOWNSHIP";
+    document.getElementById("leaderRank").innerHTML = "MAYOR";
+  } else if (villageRank == 3) {
+    document.getElementById("villageRank").innerHTML = "TOWN";
+    document.getElementById("leaderRank").innerHTML = "MAYOR";
+  } else if (villageRank == 4) {
+    document.getElementById("villageRank").innerHTML = "CITY";
+    document.getElementById("leaderRank").innerHTML = "MAYOR";
+  } else {alert("villageRank is too high or too low, beep boop crash")}
+
+  //write village and leader name
+  document.getElementById("villageName").innerHTML = villageName;
+  document.getElementById("leaderName").innerHTML = leaderName;
+
+}
 
 //make main screen visible and opening invisible and disable UNITE button
 function openMainScreen() {
@@ -38,17 +104,41 @@ function openMainScreen() {
 //on document ready
 $(document).ready(function() {
 
-    //initialize tooltips
-    $('#addHunterButton').tooltip({title: "+" + hunterFoodRate + " food/sec", delay: {show: 1000, hide: 0}, placement: "right"});
-    $('#addGathererButton').tooltip({title: "+" + gathererWoodRate + " wood/sec and " + "+" + gathererFursRate + " furs/sec", delay: {show: 1000, hide: 0}, placement: "right"});
-    $('#addFarmerButton').tooltip({title: "+" + farmerFoodRate + " food/sec", delay: {show: 1000, hide: 0}, placement: "right"});
-    $('#addHutButton').tooltip({title: "+2 beds", delay: {show: 1000, hide: 0}, placement: "right"});
+    updateTooltipDelay();
 
     updateDistribution();
 
     updateBuildingEnabler();
 
+    updateVillageRank();
+
+    //renaming village
+    $("#renameVillageInput").keypress(function (e) { //watches for keypress
+        if (e.which === 13) {  //checks whether the pressed key is "Enter"
+          var workingVillageName = document.getElementById('renameVillageInput').value; //set workingVillageName to input from text box
+          villageName = workingVillageName.toUpperCase(); //set actual leaderName to upper case workingVillageName
+          updateVillageRank(); //update the display
+        }
+    });
+
+    //renaming leader
+    $("#renameLeaderInput").keypress(function (e) { //watches for keypress
+        if (e.which === 13) {  //checks whether the pressed key is "Enter"
+          var workingLeaderName = document.getElementById('renameLeaderInput').value; //set workingLeaderName to input from text box
+          leaderName = workingLeaderName.toUpperCase(); //set actual leaderName to upper case workingLeaderName
+          updateVillageRank(); //update the display
+        }
+    });
+
 });
+
+//update tooltip delay
+function updateTooltipDelay() {
+  $('#addHunterButton').tooltip({title: "+" + hunterFoodRate + " food/sec", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
+  $('#addGathererButton').tooltip({title: "+" + gathererWoodRate + " wood/sec and " + "+" + gathererFursRate + " furs/sec", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
+  $('#addFarmerButton').tooltip({title: "+" + farmerFoodRate + " food/sec", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
+  $('#addHutButton').tooltip({title: "+2 beds", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
+}
 
 //add citizens when there is free population and food
 window.setInterval(function() {
@@ -56,8 +146,7 @@ window.setInterval(function() {
       intTotalCitizens++;
       updateDistribution();
     }
-//once per minute
-}, 60000);
+}, 60000); //once per minute
 
 /*
 //add hunter cooldown
@@ -67,24 +156,20 @@ function addHunterCooldown() {
 */
 
 function updateBuildingEnabler() {
-
     //enable/disable building hut
     if (totalWood - 10 >= 0 && $('#addHutButton').hasClass("disabled")) {
         $('#addHutButton').removeClass("disabled");
     } else if ((totalWood - 10 <= 0) && !$('#addHutButton').hasClass("disabled")) {
         $('#addHutButton').addClass("disabled");
     }
-
 }
 
 
 //once per second: updating and write resource count and rate, enabling/disabling building buttons
 window.setInterval(function() {
 
-    //adds together food production and subtracts citizen consumption for net rate
-    foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens;
-    //adds foodRate to total
-    totalFood = totalFood + foodRate;
+    foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens; //adds together food production and subtracts citizen consumption for net rate
+    totalFood = totalFood + foodRate; //adds foodRate to total
     woodRate = (gathererWoodRate * intGatherers);
     totalWood = totalWood + woodRate;
     fursRate = (gathererFursRate * intGatherers);
@@ -97,21 +182,23 @@ window.setInterval(function() {
     }
 
     //update the total and rate
-    document.getElementById('totalFood').innerHTML = totalFood + " food " + foodRate + " food/sec";
-    document.getElementById('totalWood').innerHTML = totalWood + " wood " + woodRate + " wood/sec";
-    document.getElementById('totalFurs').innerHTML = totalFurs + " furs " + fursRate + " furs/sec";
+    document.getElementById('totalFood').innerHTML = totalFood + " food";
+    document.getElementById('totalWood').innerHTML = totalWood + " wood";
+    document.getElementById('totalFurs').innerHTML = totalFurs + " furs";
+    document.getElementById('foodRate').innerHTML = foodRate + "/sec";
+    document.getElementById('woodRate').innerHTML = woodRate + "/sec";
+    document.getElementById('fursRate').innerHTML = fursRate + "/sec";
 
     //change color to red if negative
     if (foodRate < 0) {
-      document.getElementById('totalFood').style.color = "red";
+      document.getElementById('foodRate').style.color = "red";
     } else {
-      document.getElementById('totalFood').style.color = "white";
+      document.getElementById('foodRate').style.color = "white";
     }
 
     updateBuildingEnabler();
 
-//once per second
-}, 1000);
+}, 1000); //once per second
 
 //updating distribution bar
 function updateDistribution() {
@@ -152,6 +239,8 @@ function updateDistribution() {
       $('#addGathererButton').removeClass("disabled");
       $('#addFarmerButton').removeClass("disabled");
     }
+
+    updateVillageRank();
 
 }
 
@@ -194,19 +283,16 @@ function addHut() {
 
 //start counting down to kill citizen
 function killCitizenCountdown() {
-    //so only one citizen will be killed at a time
-    if (killingCitizen == true) {
+    if (killingCitizen == true) { //so only one citizen will be killed at a time
     } else if (killingCitizen == false){
-        //fifteen seconds
-        setTimeout(killCitizen, 15000);
+        setTimeout(killCitizen, 15000); //fifteen seconds
         killingCitizen = true;
     } else {alert("var killingCitizen is neither true nor false. this is a bug, please report it")}
 }
 
 //kill a citizen after 15 seconds
 function killCitizen() {
-    //kills one from total
-    intTotalCitizens--;
+    intTotalCitizens--; //kills one from total
     if (intFree > 0) {
         intFree--;
     } else if (intGatherers > 0) {

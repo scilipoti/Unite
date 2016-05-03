@@ -2,3 +2,4 @@ Bugs
 
 Fix resource production balance
 Bold text on button hover moves down
+Village name and leader name aren't on same baseline

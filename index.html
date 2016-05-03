@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- version 0.5.1 -->
-
 <head>
 
   <meta charset="utf-8">
@@ -27,18 +25,38 @@
 
   <!-- the opening screen fades when the UNITE button is clicked. This is controlled by openMainScreen() -->
   <div id="openingScreen" style="position: fixed">
-    <div id="openingText">You and your band of five approach a broad river.<br>You call them to a halt and strike the first tent.<br>Here you will make your home.<br><div id="houseName"></div></div>
+    <div class= "whiteText" id="openingText">You and your band of five approach a broad river.<br>You call them to a halt and strike the first tent.<br>Here you will make your home.<br><div id="houseName"></div></div>
     <div class="button" id="uniteButton" onClick="openMainScreen()">UNITE</div>
   </div>
 
+  <div class="whiteText" id="settingsContainer" style="display: none">
+    <span id="settingsTitle">Settings:</span>
+    <span id="closeSettings" style="margin-bottom: 8px" onClick="closeSettings()">close</span>
+    <span>Village Name:</span>
+    <span id="renameVillage"><input class="settingsInput" id="renameVillageInput" type="text" value="LANNISPORT"></span>
+    <br>
+    <span>Leader Name:</span>
+    <span id="renameLeader"><input class="settingsInput" id="renameLeaderInput" type="text" value="TYWIN LANNISTER"></span>
+    <br>
+    <span>Tooltip Delay:</span>
+    <span id="changeTooltipDelay"><input class="settingsInput" id="changeTooltipDelayInput" type="text" value="1000" size="5"></span>
+    <span>ms</span>
+  </div>
+
   <!-- the main screen is loaded by openMainScreen() as the opening disappears -->
-  <div id="mainScreen" style="display: none">
+  <div class="whiteText" id="mainScreen" style="display: none">
 
     <div id="workspace">
 
       <div id="title">
-        <span id="villageName">VILLAGE NAME</span>
-        <span id="leaderName">LEADER NAME</span>
+        <span id="villageNameContainer">
+          <span id="villageName"></span>
+          <span id="villageRank"></span>
+        </span>
+        <span id="leaderNameContainer">
+          <span id="leaderRank"></span>
+          <span id="leaderName"></span>
+        </span>
       </div>
 
       <div id="leftContainer">
@@ -47,9 +65,9 @@
 
           <p>Resources:</p>
           <div id="resources">
-            <div id="totalFood">food</div>
-            <div id="totalWood">wood</div>
-            <div id="totalFurs">furs</div>
+            <div id="foodCount"><span class="totalResource" id="totalFood"></span><span class="resourceRate" id="foodRate"></span></div>
+            <div id="woodCount"><span class="totalResource" id="totalWood"></span><span class="resourceRate" id="woodRate"></span></div>
+            <div id="fursCount"><span class="totalResource" id="totalFurs"></span><span class="resourceRate" id="fursRate"></span></div>
           </div>
 
         </div>
@@ -78,6 +96,12 @@
       <div id="notificationContainer">
         Notifications go here. <br>
         Long notifications can even appear on multiple lines.
+      </div>
+
+      <div id="metaLinks">
+        <span class="metaLink" id="settingsLink" onClick="openSettings()">settings</span>
+        <span class="metaLink" id="saveLink" onClick="openSave()">save</span>
+        <span><a class="metaLink" href="https://github.com/scilipoti/Unite" target="_blank">github</a></span>
       </div>
 
     </div>

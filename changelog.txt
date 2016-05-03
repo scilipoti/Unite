@@ -1,5 +1,15 @@
 Changelog:
 
+v0.6
+Added village and leader ranks
+Added github link
+Added settings window
+Added custom village and leader names
+Added dummy save button
+Consolidated JS comments
+Aligned resource rates properly
+Added dummy tooltip delay option
+
 v0.5.1
 Fixed tooltip opacity
 Disabled train citizens if there are no free citizens

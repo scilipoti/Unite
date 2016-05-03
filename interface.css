@@ -12,11 +12,15 @@
   display: none;
 }
 
-#openingText {
-  text-align: center;
+.whiteText {
   font-size: 14px;
   color: white;
   font-family: 'Lora', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#openingText {
+  text-align: center;
   position: fixed;
   width: 100%;
   top: 30%;
@@ -27,6 +31,44 @@
   top: 50%;
   left:50%;
   margin-left: -50px;
+}
+
+#settingsContainer {
+  background-color: #2d3231;
+  border: 1px solid white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -200px;
+  width: 400px;
+  height: 300px;
+  -webkit-box-shadow: 0px 0px 15px  rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 0px 15px  rgba(0, 0, 0, 0.7);
+  padding: 10px;
+}
+
+.settingsInput {
+  background-color: #2d3231;
+  font-weight: bold;
+}
+
+.settingsInput:focus {
+    outline:none;
+}
+
+#settingsTitle {
+  float: left;
+}
+
+#closeSettings {
+  display: block;
+  text-align: right;
+}
+
+#closeSettings:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* sets background color, makes everything unselectable and sets the cursor to the pointer always */
@@ -41,12 +83,8 @@
 }
 
 #mainScreen {
-  font-size: 14px;
-  color: white;
-  font-family: 'Lora', serif;
   font-weight: normal;
   height: 100%;
-  -webkit-font-smoothing: antialiased;
 }
 
 #title {
@@ -56,16 +94,17 @@
   margin-bottom: 15px;
 }
 
-#villageName {
+#villageNameContainer {
   position: absolute;
   font-size: 40px;
+  float: left;
   font-weight: bold;
   bottom: 0;
   left: 0;
   letter-spacing: 3px;
 }
 
-#leaderName {
+#leaderNameContainer {
   position: absolute;
   font-size: 20px;
   float: right;
@@ -73,11 +112,13 @@
   bottom: 0;
   right: 0;
   letter-spacing: 1px;
+  font-weight: bold;
 }
 
 #workspace {
   margin: auto;
   width: 900px;
+  height: 100%;
 }
 
 #leftContainer {
@@ -93,6 +134,15 @@
   width: 180px;
   padding: 9px;
   border: 1px solid white;
+}
+
+.totalResource {
+  float: left;
+}
+
+.resourceRate {
+  display: block;
+  text-align: right;
 }
 
 #buttonsContainer {
@@ -167,6 +217,10 @@
   color: grey;
 }
 
+.disabledLink {
+  pointer-events: none;
+}
+
 .button.buildButton {
   display: inline-block;
 }
@@ -201,6 +255,27 @@
 /* increase tooltip size just for this button */
 #addGathererButton + .tooltip > .tooltip-inner {
   width: 120px;
+}
+
+#metaLinks {
+  position: fixed;
+  padding:0px;
+  bottom:0px;
+  margin-bottom: 30px;
+  text-align: right;
+  width: 900px;
+}
+
+.metaLink {
+  color: grey;
+  text-decoration: none;
+  padding-left: 12px;
+}
+
+.metaLink:hover {
+  color: grey;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 #citizenDistributionContainer {
