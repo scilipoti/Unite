@@ -1,12 +1,12 @@
 function updateDistribution() {
 
-    //resources
+    //resource rates
     foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens; //adds together food production and subtracts citizen consumption for net rate
-    woodRate = ((gathererWoodRate * intGatherers) + (woodcutterWoodRate * intWoodcutters)) - (woodsmithWoodRate * intWoodsmiths);
-    fursRate = ((hunterFursRate * intHunters) + (trapperFursRate * intTrappers)) - (tailorFursRate * intTailors);
-    oreRate = (minerOreRate * intMiners) - (blacksmithOreRate * intBlacksmiths);
+    woodRate = ((gathererWoodRate * intGatherers) + (woodcutterWoodRate * intWoodcutters)) + (woodsmithWoodRate * intWoodsmiths);
+    fursRate = ((hunterFursRate * intHunters) + (trapperFursRate * intTrappers)) + (tailorFursRate * intTailors);
+    oreRate = (minerOreRate * intMiners) + (blacksmithOreRate * intBlacksmiths);
 
-    //commodities
+    //commoditie rates
     lumberRate = (woodsmithLumberRate * intWoodsmiths);
     clothRate = (tailorClothRate * intTailors);
     metalRate = (blacksmithMetalRate * intBlacksmiths);
@@ -61,6 +61,28 @@ function updateDistribution() {
     } else if (intFree > 0 && $('#addHunterButton').hasClass("disabled")) {
       $('.addJobButton').removeClass("disabled");
     }
+
+    hunterFoodRateTooltip = (hunterFoodRate * intHunters) + "/sec from hunters";
+    gathererFoodRateTooltip = (gathererFoodRate * intGatherers) + "/sec from gatherers";
+    farmerFoodRateTooltip = (farmerFoodRate * intFarmers) + "/sec from farmers";
+    citizenFoodRateTooltip = (intTotalCitizens * -1) + "/sec from consumption"; //total citizen consumption
+
+    gathererWoodRateTooltip = (gathererWoodRate * intGatherers) + "/sec from gatherers";
+    woodcutterWoodRateTooltip = (woodcutterWoodRate * intWoodcutters) + "/sec from woodcutters";
+    woodsmithWoodRateTooltip = (woodsmithWoodRate * intWoodsmiths) + "/sec from woodsmiths";
+
+    hunterFursRateTooltip = (hunterFursRate * intHunters) + "/sec from hunters";
+    trapperFursRateTooltip = (trapperFursRate * intTrappers) + "/sec from trappers";
+    tailorFursRateTooltip = (tailorFursRate * intTailors) + "/sec from tailors";
+
+    minerOreRateTooltip = (minerOreRate * intMiners) + "/sec from miners";
+    blacksmithOreRateTooltip = (blacksmithOreRate * intBlacksmiths) + "/sec from blacksmiths";
+
+    woodsmithLumberRateTooltip = (woodsmithLumberRate * intWoodsmiths) + "/sec from woodsmiths";
+
+    tailorClothRateTooltip = (tailorClothRate * intTailors) + "/sec from tailors";
+
+    blacksmithMetalRateTooltip = (blacksmithMetalRate * intBlacksmiths) + "/sec from blacksmiths";
 
     updateTooltipDelay();
 

@@ -245,20 +245,43 @@
 /* tooltips */
 .button + .tooltip > .tooltip-inner {
   background-color: #35929e;
-  width: 100px;
+  white-space: pre;
+  max-width: none;
   text-align: center;
   vertical-align: middle;
   font-size: 12px;
   color: white;
   font-family: 'Lora', serif;
   padding-top: 4px;
-  -webkit-box-shadow: 0px 0px 5px  rgba(0, 0, 0, .2);
-  box-shadow: 0px 0px 5px  rgba(0, 0, 0, .2);
-  white-space:pre-wrap;
+  -webkit-box-shadow: 0px 0px 5px  rgba(0, 0, 0, .4);
+  box-shadow: 0px 0px 5px  rgba(0, 0, 0, .4);
 }
+
 .button + .tooltip.right > .tooltip-arrow {
    border-right: 5px solid #35929e;
  }
+
+.resourceCount:hover {
+  text-decoration: underline;
+}
+
+.resourceCount + .tooltip > .tooltip-inner {
+  background-color: #35929e;
+  white-space: pre;
+  max-width: none;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12px;
+  color: white;
+  font-family: 'Lora', serif;
+  padding-top: 4px;
+  -webkit-box-shadow: 0px 0px 5px  rgba(0, 0, 0, .4);
+  box-shadow: 0px 0px 5px  rgba(0, 0, 0, .4);
+ }
+
+.resourceCount + .tooltip.right > .tooltip-arrow {
+  border-right: 5px solid #35929e;
+  }
 
 .tooltip {
   opacity: 1 !important;

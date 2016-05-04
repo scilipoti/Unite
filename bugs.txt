@@ -3,4 +3,3 @@ Bugs
 Bold text on button hover moves down
 Village name and leader name aren't on same baseline
 Close button on settings window invisibly extends too far left
-Lines don't break properly on resource rate tooltips

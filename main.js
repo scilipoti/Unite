@@ -62,6 +62,30 @@ var leaderName = "TYWIN LANNISTER";
 //custom tooltip delay
 var tooltipDelay = 1000;
 
+//tooltips
+var hunterFoodRateTooltip;
+var gathererFoodRateTooltip;
+var farmerFoodRateTooltip;
+var citizenFoodRateTooltip;
+
+var gathererWoodRateTooltip;
+var woodcutterWoodRateTooltip;
+var woodsmithWoodRateTooltip;
+
+var hunterFursRateTooltip;
+var trapperFursRateTooltip;
+var tailorFursRateTooltip;
+
+var minerOreRateTooltip;
+var blacksmithOreRateTooltip;
+
+var woodsmithLumberRateTooltip;
+
+var tailorClothRateTooltip;
+
+var blacksmithMetalRateTooltip;
+
+
 //opens settings window
 function openSettings() {
   $("#settingsContainer").toggle(true); //sets display true

@@ -1,5 +1,10 @@
 Changelog:
 
+v0.7.1
+Fixed commodity jobs adding resources instead of taking them away
+Fixed resource tooltips not updating
+Fixed tooltip line breaks not working properly
+
 v0.7
 Added woodcutter, trapper, miner, woodsmith, tailor, and blacksmith professions
 Added ore, lumber, cloth, and metal resources
