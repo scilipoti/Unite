@@ -1,10 +1,6 @@
-# General Design
-
-a sense of scale. how big is the village really?
-
-
-
 # Feature List
+
+seasons
 
 have a notification section like EU4 for worker starvation, choices, etc
 notifications:
@@ -13,11 +9,10 @@ notifications:
   when your village changes size
   when a citizen arrives
   when a citizen dies
+  various fun storytelling notifications
 
 fade in buildings and buttons only just before they can be built. very simplistic at first.
 never fade in more than 2 or 3 at a time
-
-have a notification section like EU4 for worker starvation, choices, etc
 
 show which resources you have enough of to build in green, not enough in red
 
@@ -27,10 +22,42 @@ order distribution bar by size (to an extent)
 
 disable buttons when you don't have enough resources
 
+fade in UNITE button so the user reads the intro text
+
+randomized village and leader names
+
 settings and options:
   tooltip delay
   day/night colors
   expert mode to show all possible buildings, buttons
-  custom village and leader names
 
 random events
+
+progress bar toward next village rank
+
+
+# Resources
+
+Food
+Wood
+Furs
+Ore
+
+# Commodities
+
+Lumber
+Cloth
+Metal
+
+# Jobs
+
+Hunter - collects 1 food + 1 furs
+Gatherer - collects 1 food + 1 wood
+Farmer - collects 2 food
+Woodcutter - collects 2 wood
+Trapper - collects 2 furs
+Miner - collects 2 ore
+
+Woodsmith - converts 2 wood to 1 lumber
+Tailor - converts 2 furs to 1 cloth
+Blacksmith - converts 2 ore to 1 metal

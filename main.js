@@ -2,27 +2,55 @@
 var intMaxPop = 5;
 var intTotalCitizens = 5;
 var intUsedCitizens = 4;
+var intFree = 1;
+
 var intHunters = 1;
 var intGatherers = 1;
 var intFarmers = 2;
-var intFree = 1;
+var intWoodcutters = 0;
+var intTrappers = 0;
+var intMiners = 0;
+
+var intWoodsmiths = 0;
+var intTailors = 0;
+var intBlacksmiths = 0;
 
 //total resources
 var totalFood = 10;
 var totalWood = 10;
 var totalFurs = 10;
+var totalOre = 10;
+
+var totalLumber = 0;
+var totalCloth = 0;
+var totalMetal = 0;
 
 //citizen production rates
 var hunterFoodRate = 1;
-var gathererFoodRate = 0;
+var hunterFursRate = 1;
+var gathererFoodRate = 1;
 var gathererWoodRate = 1;
-var gathererFursRate = 1;
 var farmerFoodRate = 2;
+var woodcutterWoodRate = 2;
+var trapperFursRate = 2;
+var minerOreRate = 2;
+
+var woodsmithWoodRate = -2;
+var woodsmithLumberRate = 1;
+var tailorFursRate = -2;
+var tailorClothRate = 1;
+var blacksmithOreRate = -2;
+var blacksmithMetalRate = 1;
 
 //resource production rates
 var foodRate = 3.5;
 var woodRate = 0;
 var fursRate = 0;
+var oreRate = 0;
+
+var lumberRate = 0;
+var clothRate = 0;
+var metalRate = 0;
 
 //limit so only one citizen will be killed at a time
 var killingCitizen = false;
@@ -31,7 +59,7 @@ var killingCitizen = false;
 var villageName = "LANNISPORT";
 var leaderName = "TYWIN LANNISTER";
 
-//custom tooltip delay, initially 1 second
+//custom tooltip delay
 var tooltipDelay = 1000;
 
 //opens settings window
@@ -39,7 +67,6 @@ function openSettings() {
   $("#settingsContainer").toggle(true); //sets display true
   $("#settingsLink").addClass("disabledLink");
   $("#saveLink").addClass("disabledLink"); //need to disable save so it doesn't open multiple windows
-
 }
 
 //close settings window
@@ -104,9 +131,9 @@ function openMainScreen() {
 //on document ready
 $(document).ready(function() {
 
-    updateTooltipDelay();
-
     updateDistribution();
+
+    updateTooltipDelay();
 
     updateBuildingEnabler();
 
@@ -131,14 +158,6 @@ $(document).ready(function() {
     });
 
 });
-
-//update tooltip delay
-function updateTooltipDelay() {
-  $('#addHunterButton').tooltip({title: "+" + hunterFoodRate + " food/sec", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
-  $('#addGathererButton').tooltip({title: "+" + gathererWoodRate + " wood/sec and " + "+" + gathererFursRate + " furs/sec", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
-  $('#addFarmerButton').tooltip({title: "+" + farmerFoodRate + " food/sec", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
-  $('#addHutButton').tooltip({title: "+2 beds", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
-}
 
 //add citizens when there is free population and food
 window.setInterval(function() {
@@ -168,12 +187,14 @@ function updateBuildingEnabler() {
 //once per second: updating and write resource count and rate, enabling/disabling building buttons
 window.setInterval(function() {
 
-    foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens; //adds together food production and subtracts citizen consumption for net rate
-    totalFood = totalFood + foodRate; //adds foodRate to total
-    woodRate = (gathererWoodRate * intGatherers);
+    totalFood = totalFood + foodRate;
     totalWood = totalWood + woodRate;
-    fursRate = (gathererFursRate * intGatherers);
     totalFurs = totalFurs + fursRate;
+    totalOre = totalOre + oreRate;
+
+    totalLumber = totalLumber + lumberRate;
+    totalCloth = totalCloth + clothRate;
+    totalMetal = totalMetal + metalRate;
 
     //start killing the worker if food runs out
     if (totalFood <= 0 && foodRate < 0) {
@@ -181,13 +202,25 @@ window.setInterval(function() {
       killCitizenCountdown();
     }
 
-    //update the total and rate
+    //update the total and rate of resources
     document.getElementById('totalFood').innerHTML = totalFood + " food";
     document.getElementById('totalWood').innerHTML = totalWood + " wood";
     document.getElementById('totalFurs').innerHTML = totalFurs + " furs";
+    document.getElementById('totalOre').innerHTML = totalOre + " ore";
+
     document.getElementById('foodRate').innerHTML = foodRate + "/sec";
     document.getElementById('woodRate').innerHTML = woodRate + "/sec";
     document.getElementById('fursRate').innerHTML = fursRate + "/sec";
+    document.getElementById('oreRate').innerHTML = oreRate + "/sec";
+
+    //commodities
+    document.getElementById('totalLumber').innerHTML = totalLumber + " lumber";
+    document.getElementById('totalCloth').innerHTML = totalCloth + " cloth";
+    document.getElementById('totalMetal').innerHTML = totalMetal + " metal";
+
+    document.getElementById('lumberRate').innerHTML = lumberRate + "/sec";
+    document.getElementById('clothRate').innerHTML = clothRate + "/sec";
+    document.getElementById('metalRate').innerHTML = metalRate + "/sec";
 
     //change color to red if negative
     if (foodRate < 0) {
@@ -199,77 +232,6 @@ window.setInterval(function() {
     updateBuildingEnabler();
 
 }, 1000); //once per second
-
-//updating distribution bar
-function updateDistribution() {
-
-    //citizen population variables
-    intUsedCitizens = intHunters + intGatherers + intFarmers;
-    intFree = intTotalCitizens - intUsedCitizens;
-
-    //distribution percentages
-    distributionHunters = ( intHunters / intMaxPop ) * 100;
-    distributionGatherers = ( intGatherers / intMaxPop ) * 100;
-    distributionFarmers = ( intFarmers / intMaxPop ) * 100;
-    distributionFree = ( intFree / intMaxPop ) * 100;
-    distributionMaxPop = 100 - distributionHunters - distributionGatherers - distributionFarmers - distributionFree;
-
-    //sizing the bar to the percentages
-    document.getElementById('distributionHunters').style.width = distributionHunters + "%";
-    document.getElementById('distributionGatherers').style.width = distributionGatherers + "%";
-    document.getElementById('distributionFarmers').style.width = distributionFarmers + "%";
-    document.getElementById('distributionFree').style.width = distributionFree + "%";
-    document.getElementById('distributionMaxPop').style.width = distributionMaxPop + "%";
-
-    //writing citizen numbers in the distribution bar
-    document.getElementById('distributionHunters').innerHTML = intHunters + " Hunters";
-    document.getElementById('distributionGatherers').innerHTML = intGatherers + " Gatherers";
-    document.getElementById('distributionFarmers').innerHTML = intFarmers + " Farmers";
-    document.getElementById('distributionFree').innerHTML = intFree + " Unemployed";
-    document.getElementById('distributionMaxPop').innerHTML = (intMaxPop - intTotalCitizens) + " Empty Beds";
-
-    //disable training citizens if there are not more free citizens
-    if (intFree <= 0) {
-      $('#addHunterButton').addClass("disabled");
-      $('#addGathererButton').addClass("disabled");
-      $('#addFarmerButton').addClass("disabled");
-    //if they are disabled and there are free citizens, enable them
-    } else if (intFree > 0 && $('#addHunterButton').hasClass("disabled")) {
-      $('#addHunterButton').removeClass("disabled");
-      $('#addGathererButton').removeClass("disabled");
-      $('#addFarmerButton').removeClass("disabled");
-    }
-
-    updateVillageRank();
-
-}
-
-//setting citizens to jobs
-function addHunter() {
-    intUsedCitizens = intHunters + intGatherers + intFarmers
-    if (intUsedCitizens < intTotalCitizens) {
-        intHunters++;
-    } else {
-        alert("addHunter went to else statement. No more free citizens, can't add more jobs")
-    }
-    updateDistribution();
-}
-
-function addGatherer() {
-    intUsedCitizens = intHunters + intGatherers + intFarmers
-    if (intUsedCitizens < intTotalCitizens) {
-        intGatherers++;
-    } else {alert("addGatherer went to else statement. No more free citizens, can't add more jobs")}
-    updateDistribution();
-}
-
-function addFarmer() {
-    intUsedCitizens = intHunters + intGatherers + intFarmers
-    if (intUsedCitizens < intTotalCitizens) {
-        intFarmers++;
-    } else {alert("addFarmer went to else statement. No more free citizens, can't add more jobs")}
-    updateDistribution();
-}
 
 //adding buildings
 function addHut() {

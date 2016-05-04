@@ -15,6 +15,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="addJobs.js"></script>
+  <script type="text/javascript" src="updateDistribution.js"></script>
+  <script type="text/javascript" src="updateTooltipDelay.js"></script>
 
   <title>Unite</title>
 
@@ -46,6 +49,22 @@
   <!-- the main screen is loaded by openMainScreen() as the opening disappears -->
   <div class="whiteText" id="mainScreen" style="display: none">
 
+    <div id="citizenDistributionContainer">
+      <div id="citizenDistributionProgress">
+        <div id="distributionHunters" class="distributionSection"></div>
+        <div id="distributionGatherers" class="distributionSection"></div>
+        <div id="distributionFarmers" class="distributionSection"></div>
+        <div id="distributionWoodcutters" class="distributionSection"></div>
+        <div id="distributionTrappers" class="distributionSection"></div>
+        <div id="distributionMiners" class="distributionSection"></div>
+        <div id="distributionWoodsmiths" class="distributionSection"></div>
+        <div id="distributionTailors" class="distributionSection"></div>
+        <div id="distributionBlacksmiths" class="distributionSection"></div>
+        <div id="distributionFree" class="distributionSection"></div>
+        <div id="distributionMaxPop" class="distributionSection"></div>
+      </div>
+    </div>
+
     <div id="workspace">
 
       <div id="title">
@@ -68,6 +87,13 @@
             <div id="foodCount"><span class="totalResource" id="totalFood"></span><span class="resourceRate" id="foodRate"></span></div>
             <div id="woodCount"><span class="totalResource" id="totalWood"></span><span class="resourceRate" id="woodRate"></span></div>
             <div id="fursCount"><span class="totalResource" id="totalFurs"></span><span class="resourceRate" id="fursRate"></span></div>
+            <div id="oreCount"><span class="totalResource" id="totalOre"></span><span class="resourceRate" id="oreRate"></span></div>
+          </div>
+          <p />
+          <div id="commodities">
+            <div id="lumberCount"><span class="totalResource" id="totalLumber"></span><span class="resourceRate" id="lumberRate"></span></div>
+            <div id="clothCount"><span class="totalResource" id="totalCloth"></span><span class="resourceRate" id="clothRate"></span></div>
+            <div id="metalCount"><span class="totalResource" id="totalMetal"></span><span class="resourceRate" id="metalRate"></span></div>
           </div>
 
         </div>
@@ -76,9 +102,16 @@
 
           <div id="jobButtonsContainer">
             <p style="margin-left: 6px">Train:</p>
-            <div class="button" id="addHunterButton" onClick="addHunter()">hunter</div>
-            <div class="button" id="addGathererButton" onClick="addGatherer()">gatherer</div>
-            <div class="button" id="addFarmerButton" onClick="addFarmer()">farmer</div>
+            <div class="button addJobButton" id="addFarmerButton" onClick="addFarmer()">farmer</div>
+            <div class="button addJobButton" id="addGathererButton" onClick="addGatherer()">gatherer</div>
+            <div class="button addJobButton" id="addHunterButton" onClick="addHunter()">hunter</div>
+            <div class="button addJobButton" id="addWoodcutterButton" onClick="addWoodcutter()">woodcutter</div>
+            <div class="button addJobButton" id="addTrapperButton" onClick="addTrapper()">trapper</div>
+            <div class="button addJobButton" id="addMinerButton" onClick="addMiner()">miner</div>
+            <p class="divider" />
+            <div class="button addJobButton" id="addWoodsmithButton" onClick="addWoodsmith()">woodsmith</div>
+            <div class="button addJobButton" id="addTailorButton" onClick="addTailor()">tailor</div>
+            <div class="button addJobButton" id="addBlacksmithButton" onClick="addBlacksmith()">blacksmith</div>
           </div>
 
           <div id="buildButtonsContainer">
@@ -104,21 +137,6 @@
         <span><a class="metaLink" href="https://github.com/scilipoti/Unite" target="_blank">github</a></span>
       </div>
 
-    </div>
-
-    <div id="citizenDistributionContainer">
-      <div id="citizenDistributionProgress">
-        <div id="distributionHunters" class="distributionSection">
-        </div>
-        <div id="distributionGatherers" class="distributionSection">
-        </div>
-        <div id="distributionFarmers" class="distributionSection">
-        </div>
-        <div id="distributionFree" class="distributionSection">
-        </div>
-        <div id="distributionMaxPop" class="distributionSection">
-        </div>
-      </div>
     </div>
 
   </div>

@@ -82,6 +82,11 @@
   cursor: default;
 }
 
+.divider {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 #mainScreen {
   font-weight: normal;
   height: 100%;
@@ -131,6 +136,12 @@
 }
 
 #resources {
+  width: 180px;
+  padding: 9px;
+  border: 1px solid white;
+}
+
+#commodities {
   width: 180px;
   padding: 9px;
   border: 1px solid white;
@@ -237,12 +248,13 @@
   width: 100px;
   text-align: center;
   vertical-align: middle;
-  font-size: 13px;
+  font-size: 12px;
   color: white;
   font-family: 'Lora', serif;
   padding-top: 4px;
   -webkit-box-shadow: 0px 0px 5px  rgba(0, 0, 0, .2);
   box-shadow: 0px 0px 5px  rgba(0, 0, 0, .2);
+  white-space:pre-wrap;
 }
 .button + .tooltip.right > .tooltip-arrow {
    border-right: 5px solid #35929e;
@@ -261,7 +273,7 @@
   position: fixed;
   padding:0px;
   bottom:0px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: right;
   width: 900px;
 }
@@ -282,7 +294,7 @@
   position: fixed;
   width:100%;
   padding:0px;
-  bottom:0px;
+  top:0px;
   margin-right: 0px;
   margin-left: 0px;
 }
@@ -315,16 +327,42 @@
   transition: width .3s ease;
 }
 
+/* key 12 */
 #distributionHunters {
-  background-color: #d86f74;
+  background-color: #c16368;
 }
 
 #distributionGatherers {
-  background-color: #a9b758;
+  background-color: #ad9e49;
 }
 
 #distributionFarmers {
-  background-color: #bca67a;
+  background-color: #97a54e;
+}
+
+#distributionWoodcutters {
+  background-color: #816945;
+}
+
+#distributionTrappers {
+  background-color: #5c5f57;
+}
+
+#distributionMiners {
+  background-color: #6f6d6e;
+}
+
+/* key 41 */
+#distributionWoodsmiths {
+  background-color: #6c453b;
+}
+
+#distributionTailors {
+  background-color: #5b504d;
+}
+
+#distributionBlacksmiths {
+  background-color: #3f2724;
 }
 
 #distributionFree {

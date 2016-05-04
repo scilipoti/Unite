@@ -1,5 +1,12 @@
 Changelog:
 
+v0.7
+Added woodcutter, trapper, miner, woodsmith, tailor, and blacksmith professions
+Added ore, lumber, cloth, and metal resources
+Moved distribution bar to top
+Divided resource box into resources and commodities
+Added rate breakdown tooltips for resources
+
 v0.6
 Added village and leader ranks
 Added github link
