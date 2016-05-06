@@ -13,12 +13,12 @@ function updateTooltipDelay() {
   $('#addHutButton').tooltip({title: "+2 beds", delay: {show: tooltipDelay, hide: 0}, placement: "right"});
 
   //resource tooltip variables calculated in updateDistribution()
-  $('#foodCount').tooltip({html: true, delay: {show: 0, hide: 0}, placement: "right"}).attr('data-original-title', hunterFoodRateTooltip + "<br>" + gathererFoodRateTooltip + "<br>" + farmerFoodRateTooltip + "<br>" + citizenFoodRateTooltip).tooltip('fixTitle');
-  $('#woodCount').tooltip({html: true, delay: {show: 0, hide: 0}, placement: "right"}).attr('data-original-title', gathererWoodRateTooltip + "<br>" + woodcutterWoodRateTooltip + "<br>" + woodsmithWoodRateTooltip).tooltip('fixTitle');
-  $('#fursCount').tooltip({html: true, delay: {show: 0, hide: 0}, placement: "right"}).attr('data-original-title', hunterFursRateTooltip + "<br>" + trapperFursRateTooltip + "<br>" + tailorFursRateTooltip).tooltip('fixTitle');
-  $('#oreCount').tooltip({html: true, delay: {show: 0, hide: 0}, placement: "right"}).attr('data-original-title', minerOreRateTooltip + "<br>" + blacksmithMetalRateTooltip).tooltip('fixTitle');
-  $('#lumberCount').tooltip({html: true, delay: {show: 0, hide: 0}, placement: "right"}).attr('data-original-title', woodsmithLumberRateTooltip).tooltip('fixTitle');
-  $('#clothCount').tooltip({html: true, delay: {show: 0, hide: 0}, placement: "right"}).attr('data-original-title', tailorClothRateTooltip).tooltip('fixTitle');
-  $('#metalCount').tooltip({html: true, delay: {show: 0, hide: 0}, placement: "right"}).attr('data-original-title', blacksmithMetalRateTooltip).tooltip('fixTitle');
+  $('#foodCount').tooltip({html: true, delay: {show: 500, hide: 0}, placement: "right"}).attr('data-original-title', hunterFoodRateTooltip + "<br>" + gathererFoodRateTooltip + "<br>" + farmerFoodRateTooltip + "<br>" + citizenFoodRateTooltip).tooltip('fixTitle');
+  $('#woodCount').tooltip({html: true, delay: {show: 500, hide: 0}, placement: "right"}).attr('data-original-title', gathererWoodRateTooltip + "<br>" + woodcutterWoodRateTooltip + "<br>" + woodsmithWoodRateTooltip).tooltip('fixTitle');
+  $('#fursCount').tooltip({html: true, delay: {show: 500, hide: 0}, placement: "right"}).attr('data-original-title', hunterFursRateTooltip + "<br>" + trapperFursRateTooltip + "<br>" + tailorFursRateTooltip).tooltip('fixTitle');
+  $('#oreCount').tooltip({html: true, delay: {show: 500, hide: 0}, placement: "right"}).attr('data-original-title', minerOreRateTooltip + "<br>" + blacksmithMetalRateTooltip).tooltip('fixTitle');
+  $('#lumberCount').tooltip({html: true, delay: {show: 500, hide: 0}, placement: "right"}).attr('data-original-title', woodsmithLumberRateTooltip).tooltip('fixTitle');
+  $('#clothCount').tooltip({html: true, delay: {show: 500, hide: 0}, placement: "right"}).attr('data-original-title', tailorClothRateTooltip).tooltip('fixTitle');
+  $('#metalCount').tooltip({html: true, delay: {show: 500, hide: 0}, placement: "right"}).attr('data-original-title', blacksmithMetalRateTooltip).tooltip('fixTitle');
 
 }

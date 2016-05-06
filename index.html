@@ -18,6 +18,7 @@
   <script type="text/javascript" src="addJobs.js"></script>
   <script type="text/javascript" src="updateDistribution.js"></script>
   <script type="text/javascript" src="updateTooltipDelay.js"></script>
+  <script type="text/javascript" src="toggleJobs.js"></script>
 
   <title>Unite</title>
 
@@ -32,7 +33,7 @@
     <div class="button" id="uniteButton" onClick="openMainScreen()">UNITE</div>
   </div>
 
-  <div class="whiteText" id="settingsContainer" style="display: none">
+  <div id="settingsContainer" class="whiteText" style="display: none">
     <span id="settingsTitle">Settings:</span>
     <span id="closeSettings" style="margin-bottom: 8px" onClick="closeSettings()">close</span>
     <span>Village Name:</span>
@@ -43,7 +44,19 @@
     <br>
     <span>Tooltip Delay:</span>
     <span id="changeTooltipDelay"><input class="settingsInput" id="changeTooltipDelayInput" type="text" value="1000" size="5"></span>
-    <span>ms</span>
+    <span>not working</span>
+    <br>
+    <span>Citizen Arrival:</span>
+    <span id="changeCitizenArrival">
+      <select class="settingsInputDropdown" id="changeCitizenArrivalInput">
+        <option>5000ms</option>
+        <option>10000ms</option>
+        <option>30000ms</option>
+        <option>60000ms</option>
+        <option>120000ms</option>
+      </select>
+    </span>
+
   </div>
 
   <!-- the main screen is loaded by openMainScreen() as the opening disappears -->
@@ -95,6 +108,63 @@
             <div id="clothCount" class="resourceCount"><span class="totalResource" id="totalCloth"></span><span class="resourceRate" id="clothRate"></span></div>
             <div id="metalCount" class="resourceCount"><span class="totalResource" id="totalMetal"></span><span class="resourceRate" id="metalRate"></span></div>
           </div>
+          <p />
+          <div id="citizens">
+            <div id="farmerCount" class="citizenCount">
+              <span class="totalResource" id="totalFarmers"></span>
+              <span class="citizenOptions" id="farmerOptions">
+                <span class="citizenOptionsButton" id="toggleFarmers" onClick="toggleFarmers()">disable</span>
+              </span>
+            </div>
+            <div id="gathererCount" class="citizenCount">
+              <span class="totalResource" id="totalGatherers"></span>
+              <span class="citizenOptions" id="gathererOptions">
+                <span class="citizenOptionsButton" id="toggleGatherers" onClick="toggleGatherers()">disable</span>
+              </span>
+            </div>
+            <div id="hunterCount" class="citizenCount">
+              <span class="totalResource" id="totalHunters"></span>
+              <span class="citizenOptions" id="hunterOptions">
+                <span class="citizenOptionsButton" id="toggleHunters" onClick="toggleHunters()">disable</span>
+              </span>
+            </div>
+            <div id="woodcutterCount" class="citizenCount">
+              <span class="totalResource" id="totalWoodcutters"></span>
+              <span class="citizenOptions" id="woodcutterOptions">
+                <span class="citizenOptionsButton" id="toggleWoodcutters" onClick="toggleWoodcutters()">disable</span>
+              </span>
+            </div>
+            <div id="trapperCount" class="citizenCount">
+              <span class="totalResource" id="totalTrappers"></span>
+              <span class="citizenOptions" id="trapperOptions">
+                <span class="citizenOptionsButton" id="toggleTrappers" onClick="toggleTrappers()">disable</span>
+              </span>
+            </div>
+            <div id="minerCount" class="citizenCount">
+              <span class="totalResource" id="totalMiners"></span>
+              <span class="citizenOptions" id="minerOptions">
+                <span class="citizenOptionsButton" id="toggleMiners" onClick="toggleMiners()">disable</span>
+              </span>
+            </div>
+            <div id="woodsmithCount" class="citizenCount">
+              <span class="totalResource" id="totalWoodsmiths"></span>
+              <span class="citizenOptions" id="woodsmithOptions">
+                <span class="citizenOptionsButton" id="toggleWoodsmiths" onClick="toggleWoodsmiths()">disable</span>
+              </span>
+            </div>
+            <div id="tailorCount" class="citizenCount">
+              <span class="totalResource" id="totalTailors"></span>
+              <span class="citizenOptions" id="tailorOptions">
+                <span class="citizenOptionsButton" id="toggleTailors" onClick="toggleTailors()">disable</span>
+              </span>
+            </div>
+            <div id="blacksmithCount" class="citizenCount">
+              <span class="totalResource" id="totalBlacksmiths"></span>
+              <span class="citizenOptions" id="blacksmithOptions">
+                <span class="citizenOptionsButton" id="toggleBlacksmiths" onClick="toggleBlacksmiths()">disable</span>
+              </span>
+            </div>
+          </div>
 
         </div>
 
@@ -102,16 +172,72 @@
 
           <div id="jobButtonsContainer">
             <p style="margin-left: 6px">Train:</p>
-            <div class="button addJobButton" id="addFarmerButton" onClick="addFarmer()">farmer</div>
-            <div class="button addJobButton" id="addGathererButton" onClick="addGatherer()">gatherer</div>
-            <div class="button addJobButton" id="addHunterButton" onClick="addHunter()">hunter</div>
-            <div class="button addJobButton" id="addWoodcutterButton" onClick="addWoodcutter()">woodcutter</div>
-            <div class="button addJobButton" id="addTrapperButton" onClick="addTrapper()">trapper</div>
-            <div class="button addJobButton" id="addMinerButton" onClick="addMiner()">miner</div>
+            <div class="button addJobButton" id="addFarmerButton" onClick="addFarmer()">
+              farmer
+              <div id="addFarmerProgressContainer" class="buttonProgressContainer">
+                <div id="addFarmerProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+            <div class="button addJobButton" id="addGathererButton" onClick="addGatherer()">
+              gatherer
+              <div id="addGathererProgressContainer" class="buttonProgressContainer">
+                <div id="addGathererProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+            <div class="button addJobButton" id="addHunterButton" onClick="addHunter()">
+              hunter
+              <div id="addHunterProgressContainer" class="buttonProgressContainer">
+                <div id="addHunterProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+            <div class="button addJobButton" id="addWoodcutterButton" onClick="addWoodcutter()">
+              woodcutter
+              <div id="addWoodcutterProgressContainer" class="buttonProgressContainer">
+                <div id="addWoodcutterProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+            <div class="button addJobButton" id="addTrapperButton" onClick="addTrapper()">
+              trapper
+              <div id="addTrapperProgressContainer" class="buttonProgressContainer">
+                <div id="addTrapperProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+            <div class="button addJobButton" id="addMinerButton" onClick="addMiner()">
+              miner
+              <div id="addMinerProgressContainer" class="buttonProgressContainer">
+                <div id="addMinerProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+
             <p class="divider" />
-            <div class="button addJobButton" id="addWoodsmithButton" onClick="addWoodsmith()">woodsmith</div>
-            <div class="button addJobButton" id="addTailorButton" onClick="addTailor()">tailor</div>
-            <div class="button addJobButton" id="addBlacksmithButton" onClick="addBlacksmith()">blacksmith</div>
+
+            <div class="button addJobButton" id="addWoodsmithButton" onClick="addWoodsmith()">
+              woodsmith
+              <div id="addWoodsmithProgressContainer" class="buttonProgressContainer">
+                <div id="addWoodsmithProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+            <div class="button addJobButton" id="addTailorButton" onClick="addTailor()">
+              tailor
+              <div id="addTailorProgressContainer" class="buttonProgressContainer">
+                <div id="addTailorProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
+            <div class="button addJobButton" id="addBlacksmithButton" onClick="addBlacksmith()">
+              blacksmith
+              <div id="addBlacksmithProgressContainer" class="buttonProgressContainer">
+                <div id="addBlacksmithProgress" class="buttonProgress">
+                </div>
+              </div>
+            </div>
           </div>
 
           <div id="buildButtonsContainer">
@@ -135,6 +261,7 @@
         <span class="metaLink" id="settingsLink" onClick="openSettings()">settings</span>
         <span class="metaLink" id="saveLink" onClick="openSave()">save</span>
         <span><a class="metaLink" href="https://github.com/scilipoti/Unite" target="_blank">github</a></span>
+        <span><a class="metaLink" href="mailto:unite_dev@outlook.com?Subject=Bug%20Report" target="_top">report bug</a></span>
       </div>
 
     </div>

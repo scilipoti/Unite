@@ -57,6 +57,10 @@
     outline:none;
 }
 
+.settingsInputDropdown {
+
+}
+
 #settingsTitle {
   float: left;
 }
@@ -147,11 +151,22 @@
   border: 1px solid white;
 }
 
+#citizens {
+  width: 180px;
+  padding: 9px;
+  border: 1px solid white;
+}
+
 .totalResource {
   float: left;
 }
 
 .resourceRate {
+  display: block;
+  text-align: right;
+}
+
+.citizenOptions {
   display: block;
   text-align: right;
 }
@@ -195,9 +210,32 @@
 }
 */
 
+.citizenOptionsButton {
+  border: 1px solid white;
+  font-size: 11px;
+  padding-top: 2px;
+  padding-bottom: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-transition-duration: 0.15s;
+  transition-duration: 0.15s;
+  margin: 0px;
+  border-radius: 4px;
+}
+
+.citizenOptionsButton:hover {
+  background-color: white;
+  color: black;
+}
+.citizenOptionsButton:active {
+  background-color: grey;
+}
+
+
 /*universal button plus hover and click and disable*/
 .button {
-  background-color: #212625;
   border: 1px solid white;
   text-align: center;
   vertical-align: middle;
@@ -215,7 +253,6 @@
 .button:hover {
   background-color: white;
   color: black;
-  font-weight: bold;
 }
 
 .button:active {
@@ -224,8 +261,14 @@
 
 .disabled {
   pointer-events: none;
-  border: 1px solid grey;
-  color: grey;
+  border: 1px solid #aaaaaa;
+  color: #aaaaaa;
+}
+
+.addJobDisabled {
+  pointer-events: none;
+  border: 1px solid #aaaaaa;
+  color: #aaaaaa;
 }
 
 .disabledLink {
@@ -239,12 +282,29 @@
 .buildButtonText {
   display: inline-block;
   vertical-align: middle;
-  font-size: 13px;
+  font-size: 12px;
+}
+
+.buttonProgressContainer {
+  position: absolute;
+  height: 28px;
+  width: 98px;
+  margin-bottom: -28px;
+  margin-top: -30px;
+}
+
+.buttonProgress {
+  float: left;
+  position: relative;
+  width: 0%;
+  background-color: grey;
+  z-index: -1;
+  height: 28px;
 }
 
 /* tooltips */
 .button + .tooltip > .tooltip-inner {
-  background-color: #35929e;
+  background-color: #006979;
   white-space: pre;
   max-width: none;
   text-align: center;
@@ -258,7 +318,7 @@
 }
 
 .button + .tooltip.right > .tooltip-arrow {
-   border-right: 5px solid #35929e;
+   border-right: 5px solid #006979;
  }
 
 .resourceCount:hover {
@@ -266,7 +326,7 @@
 }
 
 .resourceCount + .tooltip > .tooltip-inner {
-  background-color: #35929e;
+  background-color: #006979;
   white-space: pre;
   max-width: none;
   text-align: center;
@@ -280,16 +340,11 @@
  }
 
 .resourceCount + .tooltip.right > .tooltip-arrow {
-  border-right: 5px solid #35929e;
+  border-right: 5px solid #006979;
   }
 
 .tooltip {
   opacity: 1 !important;
-}
-
-/* increase tooltip size just for this button */
-#addGathererButton + .tooltip > .tooltip-inner {
-  width: 120px;
 }
 
 #metaLinks {

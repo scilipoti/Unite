@@ -1,15 +1,71 @@
 function updateDistribution() {
 
     //resource rates
-    foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens; //adds together food production and subtracts citizen consumption for net rate
-    woodRate = ((gathererWoodRate * intGatherers) + (woodcutterWoodRate * intWoodcutters)) + (woodsmithWoodRate * intWoodsmiths);
-    fursRate = ((hunterFursRate * intHunters) + (trapperFursRate * intTrappers)) + (tailorFursRate * intTailors);
-    oreRate = (minerOreRate * intMiners) + (blacksmithOreRate * intBlacksmiths);
+    if (woodsmithsProducing == true) {
+      woodsmithLumberRate = 1;
+      woodsmithWoodRate = -2;
+      lumberRate = (woodsmithLumberRate * intWoodsmiths);
+    } else  if (woodsmithsProducing == false){
+      woodsmithWoodRate = 0;
+      woodsmithLumberRate = 0;
+      lumberRate = (woodsmithLumberRate * intWoodsmiths);
+    }
 
-    //commoditie rates
-    lumberRate = (woodsmithLumberRate * intWoodsmiths);
-    clothRate = (tailorClothRate * intTailors);
-    metalRate = (blacksmithMetalRate * intBlacksmiths);
+    if (tailorsProducing == true) {
+      tailorClothRate = 1;
+      tailorFursRate = -2;
+      clothRate = (tailorClothRate * intTailors);
+    } else  if (tailorsProducing == false){
+      tailorClothRate = 0;
+      tailorFursRate = 0;
+      clothRate = (tailorClothRate * intTailors);
+    }
+
+    if (blacksmithsProducing == true) {
+      blacksmithMetalRate = 1;
+      blacksmithOreRate = -2;
+      metalRate = (blacksmithMetalRate * intBlacksmiths);
+    } else  if (blacksmithsProducing == false){
+      blacksmithMetalRate = 0;
+      blacksmithOreRate = 0;
+      metalRate = (blacksmithMetalRate * intBlacksmiths);
+    }
+
+    if (huntersProducing == true) {
+      hunterFoodRate = 1;
+      hunterFursRate = 1;
+      fursRate = ((hunterFursRate * intHunters) + (trapperFursRate * intTrappers)) + (tailorFursRate * intTailors);
+    } else  if (farmersProducing == false) {
+      hunterFoodRate = 0;
+      hunterFursRate = 0;
+      fursRate = ((hunterFursRate * intHunters) + (trapperFursRate * intTrappers)) + (tailorFursRate * intTailors);
+    }
+
+    if (gatherersProducing == true) {
+      gathererFoodRate = 1;
+      gathererWoodRate = 1;
+      woodRate = ((gathererWoodRate * intGatherers) + (woodcutterWoodRate * intWoodcutters)) + (woodsmithWoodRate * intWoodsmiths);
+    } else  if (gatherersProducing == false) {
+      gathererFoodRate = 0;
+      gathererWoodRate = 0;
+      woodRate = ((gathererWoodRate * intGatherers) + (woodcutterWoodRate * intWoodcutters)) + (woodsmithWoodRate * intWoodsmiths);
+    }
+
+    if (minersProducing == true) {
+      minerOreRate = 2;
+      oreRate = (minerOreRate * intMiners) + (blacksmithOreRate * intBlacksmiths);
+    } else  if (gatherersProducing == false) {
+      minerOreRate = 2;
+      oreRate = (minerOreRate * intMiners) + (blacksmithOreRate * intBlacksmiths);
+    }
+
+    if (farmersProducing == true) {
+      farmerFoodRate = 2;
+      foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens;
+    } else  if (farmersProducing == false) {
+      farmerFoodRate = 0;
+      foodRate = ((hunterFoodRate * intHunters) + (gathererFoodRate * intGatherers) + (farmerFoodRate * intFarmers)) - intTotalCitizens;
+    }
 
     //citizen population variables
     intUsedCitizens = intHunters + intGatherers + intFarmers + intWoodcutters + intTrappers + intMiners + intWoodsmiths + intTailors + intBlacksmiths;
@@ -53,6 +109,26 @@ function updateDistribution() {
     document.getElementById('distributionBlacksmiths').innerHTML = intBlacksmiths + " Blacksmiths";
     document.getElementById('distributionFree').innerHTML = intFree + " Unemployed";
     document.getElementById('distributionMaxPop').innerHTML = (intMaxPop - intTotalCitizens) + " Empty Beds";
+
+    //setting resource rate display
+    document.getElementById('foodRate').innerHTML = foodRate + "/sec";
+    document.getElementById('woodRate').innerHTML = woodRate + "/sec";
+    document.getElementById('fursRate').innerHTML = fursRate + "/sec";
+    document.getElementById('oreRate').innerHTML = oreRate + "/sec";
+    document.getElementById('lumberRate').innerHTML = lumberRate + "/sec";
+    document.getElementById('clothRate').innerHTML = clothRate + "/sec";
+    document.getElementById('metalRate').innerHTML = metalRate + "/sec";
+
+    //writing citizens to the citizen resource panel
+    document.getElementById('totalFarmers').innerHTML = intFarmers + " farmers";
+    document.getElementById('totalGatherers').innerHTML = intGatherers + " gatherers";
+    document.getElementById('totalHunters').innerHTML = intHunters + " hunters";
+    document.getElementById('totalWoodcutters').innerHTML = intWoodcutters + " woodcutters";
+    document.getElementById('totalTrappers').innerHTML = intTrappers + " trappers";
+    document.getElementById('totalMiners').innerHTML = intMiners + " miners";
+    document.getElementById('totalWoodsmiths').innerHTML = intWoodsmiths + " woodsmiths";
+    document.getElementById('totalTailors').innerHTML = intTailors + " tailors";
+    document.getElementById('totalBlacksmiths').innerHTML = intBlacksmiths + " blacksmiths";
 
     //disable training citizens if there are not more free citizens
     if (intFree <= 0) {

@@ -1,5 +1,10 @@
 Bugs
 
-Bold text on button hover moves down
 Village name and leader name aren't on same baseline
 Close button on settings window invisibly extends too far left
+Clicking "hut" during training updates distribution and enables job training
+Job assignment is horribly redundant, same function with slight changes for each job
+Minimums on commodities are lower than zero with multiple commodity producers
+No way to re-enable commodity producers
+Tooltip delay and citizen arrival settings not working
+killCitizenCountdown doesn't cancel right away when you get enough food to support your population - an extra citizen dies

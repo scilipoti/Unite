@@ -25,7 +25,7 @@ var totalLumber = 0;
 var totalCloth = 0;
 var totalMetal = 0;
 
-//citizen production rates
+//citizen production rates - these are overwritten by updateDistribution() on page load and after
 var hunterFoodRate = 1;
 var hunterFursRate = 1;
 var gathererFoodRate = 1;
@@ -85,6 +85,19 @@ var tailorClothRateTooltip;
 
 var blacksmithMetalRateTooltip;
 
+//resource production
+var farmersProducing = true;
+var gatherersProducing = true;
+var huntersProducing = true;
+var woodcuttersProducing = true;
+var trappersProducing = true;
+var minersProducing = true;
+var woodsmithsProducing = true;
+var tailorsProducing = true;
+var blacksmithsProducing = true;
+
+//how often new citizens arrive
+var citizenArrival = 40000;
 
 //opens settings window
 function openSettings() {
@@ -189,7 +202,7 @@ window.setInterval(function() {
       intTotalCitizens++;
       updateDistribution();
     }
-}, 60000); //once per minute
+}, citizenArrival); //once per x ms
 
 /*
 //add hunter cooldown
@@ -208,48 +221,68 @@ function updateBuildingEnabler() {
 }
 
 
-//once per second: updating and write resource count and rate, enabling/disabling building buttons
+//once per second: updating and write resource count, enabling/disabling building buttons
 window.setInterval(function() {
 
-    totalFood = totalFood + foodRate;
-    totalWood = totalWood + woodRate;
-    totalFurs = totalFurs + fursRate;
-    totalOre = totalOre + oreRate;
-
-    totalLumber = totalLumber + lumberRate;
-    totalCloth = totalCloth + clothRate;
-    totalMetal = totalMetal + metalRate;
-
-    //start killing the worker if food runs out
     if (totalFood <= 0 && foodRate < 0) {
       totalFood = 0;
-      killCitizenCountdown();
+      killCitizenCountdown(); //start killing the worker if food runs out
+    } else {
+      totalFood = totalFood + foodRate;
     }
 
-    //update the total and rate of resources
+    if (totalWood <= 0 && woodRate < 0) {
+      toggleWoodsmiths();
+      alert('woodsmiths disabled');
+    } else {
+      totalWood = totalWood + woodRate;
+    }
+
+    if (totalFurs <= 0 && fursRate < 0) {
+      toggleTailors();
+      alert('tailors disabled')
+    } else {
+      totalFurs = totalFurs + fursRate;
+    }
+
+    if (totalOre <= 0 && oreRate < 0) {
+      toggleBlacksmiths();
+      alert('blacksmiths disabled')
+    } else {
+      totalOre = totalOre + oreRate;
+    }
+
+    if (totalLumber <= 0 && lumberRate < 0) {
+      totalLumber = 0;
+    } else {
+      totalLumber = totalLumber + lumberRate;
+    }
+
+    if (totalCloth <= 0 && clothRate < 0) {
+      totalCloth = 0;
+    } else {
+      totalCloth = totalCloth + clothRate;
+    }
+
+    if (totalMetal <= 0 && metalRate < 0) {
+      totalMetal = 0;
+    } else {
+      totalMetal = totalMetal + metalRate;
+    }
+
+    //update the total resources
     document.getElementById('totalFood').innerHTML = totalFood + " food";
     document.getElementById('totalWood').innerHTML = totalWood + " wood";
     document.getElementById('totalFurs').innerHTML = totalFurs + " furs";
     document.getElementById('totalOre').innerHTML = totalOre + " ore";
-
-    document.getElementById('foodRate').innerHTML = foodRate + "/sec";
-    document.getElementById('woodRate').innerHTML = woodRate + "/sec";
-    document.getElementById('fursRate').innerHTML = fursRate + "/sec";
-    document.getElementById('oreRate').innerHTML = oreRate + "/sec";
-
-    //commodities
     document.getElementById('totalLumber').innerHTML = totalLumber + " lumber";
     document.getElementById('totalCloth').innerHTML = totalCloth + " cloth";
     document.getElementById('totalMetal').innerHTML = totalMetal + " metal";
 
-    document.getElementById('lumberRate').innerHTML = lumberRate + "/sec";
-    document.getElementById('clothRate').innerHTML = clothRate + "/sec";
-    document.getElementById('metalRate').innerHTML = metalRate + "/sec";
-
     //change color to red if negative
     if (foodRate < 0) {
       document.getElementById('foodRate').style.color = "red";
-    } else {
+    } else if (foodRate >= 0 && document.getElementById('foodRate').style.color == "red"){
       document.getElementById('foodRate').style.color = "white";
     }
 

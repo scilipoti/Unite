@@ -1,3 +1,8 @@
+# To Do
+
+Consolidate addJobs.js code to only one function and change variables based on clicked button
+
+
 # Feature List
 
 seasons
